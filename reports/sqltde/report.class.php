@@ -60,7 +60,7 @@ class report_sqltde extends report_base {
 
     public function execute_query($sql, $limitnum = BLOCK_CONFIGURABLE_REPORTS_MAX_RECORDS) {
         global $remotedb, $DB, $CFG;
-        require_once($CFG->libdir.'/adodb/adodb.inc.php');
+        
         
         //$sql = preg_replace('/\bprefix_(?=\w+)/i', $CFG->prefix, $sql);
 
@@ -71,8 +71,11 @@ class report_sqltde extends report_base {
 
         $starttime = microtime(true);
         
-        $authdb = ADONewConnection($this->config->type);
-        $authdb->Connect($this->config->host, $this->config->user, $this->config->pass, $this->config->name, true);
+        require_once($CFG->libdir.'/adodb/adodb.inc.php');
+        $authdb = ADONewConnection('postgres');
+        $authdb->debug = true;
+        ob_start();
+        $authdb->Connect('localhost', 'postgres', 'postgres', 'teste', true);
         $authdb->SetFetchMode(ADODB_FETCH_ASSOC); 
 
         if (preg_match('/\b(INSERT|INTO|CREATE)\b/i', $sql)) {
