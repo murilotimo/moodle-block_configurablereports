@@ -188,21 +188,27 @@ class report_base {
     }
 
     public function print_graphs($return = false) {
-        $output = '';
+    	global $DB, $CFG, $OUTPUT;
+        $html = '';
         $graphs = $this->get_graphs($this->finalreport->table->data);
 
         if ($graphs) {
             foreach ($graphs as $g) {
-                $output .= '<div class="centerpara">';
-                $output .= ' <img src="'.$g.'" alt="'.$this->config->name.'"><br />';
-                $output .= '</div>';
+            	$deb = gettype($g);
+            	if( gettype($g) =='object'){
+            		echo $OUTPUT->render($g);
+            	} else {
+            	$html.= '<div class="centerpara">';
+            	$html.= ' <img src="'.$g.'" alt="'.$this->config->name.'"><br />';
+            	$html.= '</div>';
+            	}
             }
         }
         if ($return) {
-            return $output;
+        	return $html;
         }
 
-        echo $output;
+        echo $html;
         return true;
     }
 

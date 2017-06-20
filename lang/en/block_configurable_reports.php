@@ -153,6 +153,7 @@ $string['max'] = "Maximum";
 $string['min'] = "Minimum";
 $string['average'] = "Average";
 $string['pie'] = "Pie";
+$string['cpie'] = "cPie";
 $string['piesummary'] = "A pie graph";
 $string['pieareaname'] = "Name";
 $string['pieareavalue'] = "Value";
